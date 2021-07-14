@@ -1,57 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:paddingVertical="10dp"
-    android:paddingLeft="15dp"
-    android:paddingRight="60dp"
-    android:clipToPadding="false">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageView
-        android:id="@+id/other_image"
-        android:layout_alignParentLeft="true"
-        android:scaleType="centerInside"
-        android:src="@drawable/cat"
-        android:alpha="0.8"
-        android:layout_width="50dp"
-        android:layout_height="50dp"/>
+    <data>
+        <variable
+            name="message"
+            type="com.sungbin.stompwebsocket_kotlin.vo.MessageVO" />
 
-    <TextView
-        android:id="@+id/other_name"
-        android:layout_marginLeft="15dp"
-        android:layout_toRightOf="@+id/other_image"
-        android:layout_alignTop="@+id/other_image"
+    </data>
+
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="4dp"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:text="other"/>
+        android:paddingVertical="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="60dp"
+        android:clipToPadding="false">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/other_message"
-        android:layout_below="@+id/other_name"
-        android:layout_alignLeft="@+id/other_name"
-        android:background="@drawable/other_chat_style"
-        android:paddingVertical="12dp"
-        android:paddingHorizontal="16dp"
-        android:elevation="2dp"
-        android:textSize="15sp"
-        android:text="냐옹"
-        android:textColor="@color/white"/>
+        <ImageView
+            android:id="@+id/other_image"
+            android:layout_alignParentLeft="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/cat"
+            android:alpha="0.8"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
 
-    <TextView
-        android:id="@+id/other_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_toEndOf="@+id/other_name"
-        android:padding="5dp"
-        android:textColor="@color/black"
-        android:textSize="10sp"
-        android:text="12:00"/>
+        <TextView
+            android:id="@+id/other_name"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/other_image"
+            android:layout_alignTop="@+id/other_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:text="@{message.name}" />
 
-</RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/other_message"
+            android:layout_below="@+id/other_name"
+            android:layout_alignLeft="@+id/other_name"
+            android:background="@drawable/other_chat_style"
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="16dp"
+            android:elevation="2dp"
+            android:textSize="15sp"
+            android:text="@{message.content}"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/other_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_toEndOf="@+id/other_name"
+            android:padding="5dp"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            android:text="@{message.time}" />
+
+    </RelativeLayout>
+</layout>

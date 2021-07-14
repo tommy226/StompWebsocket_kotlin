@@ -12,11 +12,13 @@ import kotlinx.coroutines.launch
 import ua.naiksoftware.stomp.Stomp
 import ua.naiksoftware.stomp.StompClient
 import ua.naiksoftware.stomp.dto.LifecycleEvent
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainViewModel : ViewModel() {
     private val TAG = MainViewModel::class.java.simpleName
 
-    private val SOCKET_URL = "wss://varlos-smartwork.com/websocket" // http = ws로 시작하며 https = wss로 시작
+    private val SOCKET_URL = "wss://Your url/websocket" // http = ws로 시작하며 https = wss로 시작
     private val MSSAGE_DESTINATION = "/socket/message" // 소켓 주소
 
     private lateinit var mStompClient: StompClient
@@ -34,8 +36,10 @@ class MainViewModel : ViewModel() {
                     TAG,
                     "Stomp connection opened"
                 )
-                LifecycleEvent.Type.ERROR -> {
-                    Log.i(TAG, "Error", lifecycleEvent.exception)
+                LifecycleEvent.Type.ERROR -> { Log.i(
+                    TAG, "Error",
+                    lifecycleEvent.exception
+                )
                     connectStomp(room)
                 }
                 LifecycleEvent.Type.CLOSED -> Log.i(
@@ -57,7 +61,8 @@ class MainViewModel : ViewModel() {
         mStompClient.connect()
     }
 
-    fun sendMessage(name: String, content: String, time: String, room: String) {   // 구독 하는 방과 같은 주소로 메세지 전송
+    fun sendMessage(name: String, content: String, room: String) {   // 구독 하는 방과 같은 주소로 메세지 전송
+        val time = SimpleDateFormat("k:mm").format(Date(System.currentTimeMillis()))
         val messageVO = MessageVO(name, content, time)
         val messageJson: String = gson.toJson(messageVO)
         mStompClient.send(MSSAGE_DESTINATION + "/" + room, messageJson).subscribe()
